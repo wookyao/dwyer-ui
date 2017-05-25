@@ -1,0 +1,123 @@
+// checkbox config
+// -----------------------------------------------------------------------------
+$ck-gutter: 8px;
+$ck-color: $gray-color;
+$ck-checked-color: $info-color;
+$ck-font-size: 12px;
+$ck-icon-size: 14;
+
+
+// checkbox style
+// -----------------------------------------------------------------------------
+.#{$prefix-cls}checkbox__group {
+  text-align: left;
+  &-vertical {
+    .#{$prefix-cls}checkbox {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: parseInt($ck-gutter) * 1px;
+    }
+  }
+  
+}
+
+.#{$prefix-cls}checkbox {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  cursor: pointer;
+  vertical-align: middle;
+
+  margin-right: parseInt($ck-gutter) * 1px;
+  font-size: parseInt($ck-font-size) * 1px;
+
+  &--checked {
+    .#{$prefix-cls}checkbox__icon {
+      border-color: $ck-checked-color;
+      background-color: $ck-checked-color;
+
+      &:before,
+      &:after {
+        opacity: 1;
+      }
+
+      &:hover {
+        border-color: $ck-checked-color;
+      }
+    }
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    color: #999;
+    .#{$prefix-cls}checkbox__icon {
+      border-color: $ck-color;
+      background-color: $ck-color + #333;
+      cursor: not-allowed;
+      &:before,
+      &:after {
+        opacity: 0;
+      }
+
+      &:hover {
+        border-color: $ck-color;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+
+  &__icon {
+    position: relative;
+    display: inline-block;
+    margin-right: 4px;
+    width: parseInt($ck-icon-size) * 1px;
+    height: parseInt($ck-icon-size) * 1px;
+    border: 1px solid $ck-color;
+    cursor: pointer;
+    outline: 0;
+    line-height: 1;
+    vertical-align: middle;
+    @include setPrefixer((transition: border .25s ease-in-out), (webkit));
+
+    &:before,
+    &:after {
+      position: absolute;
+      content: "";
+      background-color: #fff;
+      opacity: 0;
+      @include setPrefixer((transition: opacity .25s ease-in-out), (webkit));
+    }
+    &:before {
+      top: 4px;
+      left: 4px;
+      width: 2px;
+      height: 6px;
+      @include setPrefixer((transform: rotate(-45deg)), (webkit));
+      @include setPrefixer((transform-origin: center bottom), (webkit));
+    }
+    &:after {
+      top: 10px;
+      left: 4px;
+      width: 12px;
+      height: 2px;
+      @include setPrefixer((transform: rotate(-45deg)), (webkit));
+      @include setPrefixer((transform-origin: left center), (webkit));
+    }
+
+    &:hover {
+      border-color: $ck-color -#333;
+    }
+  }
+
+  &__input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    z-index: -1;
+  }
+
+}

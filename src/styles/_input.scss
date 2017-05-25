@@ -1,0 +1,138 @@
+// input config
+// -----------------------------------------------------------------------------
+$input-color: #666;
+$input-focus-color: $info-color;
+$input-border-color: #d7dde4;
+$input-border-radius: 3px;
+$input-size: (
+	large: (
+		padding: 6px 7px,
+		height: 36px,
+		fontSize: 16px
+	),
+	def: (
+		padding: 4px 7px,
+		height: 32px,
+		fontSize: 14px
+	),
+	small: (
+		padding: 1px 7px,
+		height: 24px,
+		fontSize: 12px
+	)
+);
+
+
+
+// input style
+// -----------------------------------------------------------------------------
+.#{$prefix-cls}input__wrap {
+   position: relative;
+}
+
+.#{$prefix-cls}input {
+	$def: map-get($input-size, 'def');
+
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: parseInt(map-get($def, 'height')) * 1px;
+	line-height: 1.5;
+
+	border: {
+		width: 1px;
+		style: solid;
+		color: $input-border-color;
+	};
+
+	padding: map-get($def, 'padding');
+
+	font-size: parseInt(map-get($def, 'fontSize')) * 1px;
+
+	color: $input-color;
+	background-color: rgba($input-border-color, .05);
+	background-image: none;
+
+	outline: none;
+	@include setPrefixer((border-radius: parseInt($input-border-radius) * 1px));
+
+	-webkit-transition:
+		border .25s ease-in-out,
+		box-shadow .25s ease-in-out,
+		background .25s ease-in-out;
+	transition:
+		border .25s ease-in-out,
+		box-shadow .25s ease-in-out,
+		background .25s ease-in-out;
+
+
+	&:focus,
+	&:hover {
+		border-color: $input-focus-color;
+	}
+
+	&:focus {
+		@include setPrefixer((box-shadow: 0 0 0 2px rgba($input-focus-color, .2)));
+		background-color: #fff;
+	}
+
+	&-textarea {
+		height: auto;
+		resize: vertical;
+	}
+
+	// size
+	@each $k, $v in $input-size {
+		@if $k != def {
+			&--#{$k} {
+				height: parseInt(map-get($v, 'height')) * 1px;
+				padding: map-get($v, 'padding');
+				font-size: parseInt(map-get($v, 'fontSize')) * 1px;
+			}
+		}
+	}
+
+	// clear
+	&__close {
+
+		$size: 16;
+
+		position: absolute;
+		top: 50%;
+		right: 10px;
+		margin-top: $size / 2 * -1px;
+		display: inline-block;
+		width: $size * 1px;
+		height: $size * 1px;
+
+		color: #fff;
+
+		cursor: pointer;
+		background-color: rgba(#000, .1);
+		@include setPrefixer((border-radius: $size / 2 * 1px), (webkit, moz));
+		@include setPrefixer((transition: all .25s ease-in-out), (webkit, moz));
+
+		&:hover {
+			background-color: $input-focus-color;
+		}
+
+	}
+
+	// see password
+	&__seepwd {
+		position: absolute;
+		top: 50%;
+		bottom: 0;
+		right: 36px;
+		font-size: 16px;
+		margin-top: -8px;
+		cursor: pointer;
+		color: rgba(#000, .2);
+		@include setPrefixer((transition: color .25s ease-in-out), (webkit, moz));
+
+		&:hover {
+			color: $input-focus-color;
+		}
+	}
+
+}

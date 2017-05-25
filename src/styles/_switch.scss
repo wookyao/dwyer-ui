@@ -1,0 +1,104 @@
+// switch config
+// -----------------------------------------------------------------------------
+$switch-size: (
+	large: (
+		width: 76px,
+		height: 30px
+	),
+	def: (
+		width: 60px,
+		height: 24px
+	),
+	small: (
+		width: 48px,
+		height: 24px
+	),
+	mini: (
+		width: 24px,
+		height: 12px
+	)
+);
+
+$switch-color: $gray-color;
+$switch-checked-color: (
+	info: $info-color,
+	success: $success-color,
+	warning: $warning-color,
+	danger: $danger-color
+);
+
+// switch style
+// -----------------------------------------------------------------------------
+.#{$prefix-cls}switch {
+	position: relative;
+	display: inline-block;
+	
+	$def: map-get($switch-size, 'def');
+	$w: map-get($def, 'width');
+	$h: map-get($def, 'height');
+	width: parseInt($w) * 1px;
+	height: parseInt($h) * 1px;
+
+	border: {
+		width: 1px;
+		style: solid;
+		color: $switch-color;
+	}
+	background-color: $switch-color;
+	cursor: pointer;
+	vertical-align: middle;
+	user-select: none;
+
+	@include setPrefixer((border-radius: parseInt($h) / 2 * 1px), (webkit));
+	@include setPrefixer((transition: all .2s ease-in-out), (webkit));
+
+	&:after {
+		position: absolute;
+		top: 1px;
+		bottom: 1px;
+		left: 1px;
+		width: parseInt($h - 4) * 1px;
+		content: "";
+		background-color: #fff;
+		@include setPrefixer((border-radius: 50%), (webkit));
+		cursor: pointer;
+		@include setPrefixer((transition: left .2s ease-in-out), (webkit));
+	}
+
+	
+	// size
+	@each $k, $v in $switch-size {
+		@if $k != def {
+			&--#{$k} {
+				$w: map-get($v, 'width');
+				$h: map-get($v, 'height');
+				width: parseInt($w) * 1px;
+				height: parseInt($h) * 1px;
+				@include setPrefixer((border-radius: parseInt($h) / 2 * 1px), (webkit));
+
+				&:after {
+					width: parseInt($h - 4) * 1px;
+				}
+				
+				&.#{$prefix-cls}switch--checked {
+					&:after {
+						left: parseInt($w) - parseInt($h) + 1px;
+					}
+				}
+
+			}
+		}
+	}
+
+	// type
+	&--checked {
+		@each $key, $val in $switch-checked-color {
+			&.#{$prefix-cls}switch--#{$key} {
+				background-color: $val;
+				border-color: $val;
+			}
+		}
+	}
+	
+
+}

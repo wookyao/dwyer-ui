@@ -1,0 +1,110 @@
+// radio config
+// -----------------------------------------------------------------------------
+$radio-gutter: 8px;
+$radio-font-size: 12px;
+$radio-icon-size: 14px;
+$radio-color: $gray-color;
+$radio-checked-color: $info-color;
+
+
+// radio style
+// -----------------------------------------------------------------------------
+.#{$prefix-cls}radio__group {
+  text-align: left;
+  &-vertical {
+    .#{$prefix-cls}radio {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: parseInt($radio-gutter) * 1px;
+    }
+  }
+  
+}
+
+.#{$prefix-cls}radio {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  margin-right: parseInt($radio-gutter) * 1px;
+  font-size: parseInt($radio-font-size) * 1px;
+  vertical-align: middle;
+
+  $icon-size: parseInt($radio-icon-size);
+
+  &--checked {
+    .#{$prefix-cls}radio__icon {
+      border: 1px solid $radio-checked-color;
+      &:after {
+        opacity: 1;
+      }
+      &:hover {
+        border-color: $radio-checked-color;
+      }
+    }
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    .#{$prefix-cls}radio__icon {
+      border: 1px solid $radio-color;
+      cursor: not-allowed;
+      &:after {
+        opacity: 0;
+      }
+      &:hover {
+        border-color: $radio-color;
+        cursor: not-allowed;
+      }
+    }
+    .#{$prefix-cls}radio__input {
+      cursor: not-allowed;
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    position: relative;
+    margin-right: 4px;
+    width: $icon-size * 1px;
+    height: $icon-size * 1px;
+    border: 1px solid $radio-color;
+    outline: 0;
+    line-height: 1;
+    vertical-align: middle;
+
+    @include setPrefixer((border-radius: $icon-size / 2 * 1px));
+
+    @include setPrefixer((transition: all .25s ease-in-out), (webkit));
+
+    &:after {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      content: "";
+      width: $icon-size - 6px;
+      height: $icon-size - 6px;
+      background-color: $radio-checked-color;
+      @include setPrefixer((border-radius: 50%));
+      opacity: 0;
+      @include setPrefixer((transition: opacity .25s ease-in-out), (webkit));
+    }
+
+
+    &:hover {
+      border-color: $radio-color - #333;
+    }
+  }
+
+
+  &__input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0;
+    cursor: pointer;
+  }
+}

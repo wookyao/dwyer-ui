@@ -1,0 +1,50 @@
+// 全局配置
+// -----------------------------------------------------------------------------
+$is-use-autoprefixer: true !default;
+$prefix-list: (webkit, moz, o) !default;
+$placeholder-color: #999 !default;
+$prefix-cls: 'dr-' !default;
+
+// font 相关
+// -----------------------------------------------------------------------------
+$base-font-size: 14px !default;
+$base-line-height: 1.15 !default;
+$base-font-family: tahoma, Arial, "Hiragino Sans GB", "\u5b8b\u4f53", sans-serif !default;
+$head-font-family: tahoma, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !default;
+$code-font-family: courier new, courier, monospace !default;
+$form-font-family: Tahoma, Helvetica, Arial, sans-serif !default;
+$font-color: #555 !default;
+
+
+// colors
+// -----------------------------------------------------------------------------
+$white-color: #fff !default;
+$black-color: #000 !default;
+$light-black-color: #333 !default;
+$gray-color: #ccc !default;
+$weight-gray-color: #999 !default;
+$light-gray-color: #eee !default;
+$light-color: #f9f9f9 !default;
+
+
+// theme colors
+// -----------------------------------------------------------------------------
+$primary-color: #41cac0 !default;
+$primary-color-hover: #39b2a9 !default;
+$hover-color: rgba(65, 202, 192, 0.05) !default;
+
+// extend colors
+// -----------------------------------------------------------------------------
+$success-color: #19d567 !default;
+$success-color-hover: #30d073 !default;
+
+$info-color: #2db7f5 !default;
+$info-color-hover: #43bcf3 !default;
+
+$danger-color: #f50 !default;
+$danger-color-hover: #f9702b !default;
+
+$warning-color: #fa0 !default;
+$warning-color-hover: #f5b73b !default;
+
+
