@@ -1,0 +1,201 @@
+@charset "UTF-8";
+
+
+// prefix
+// -----------------------------------------------------------------------------
+@mixin setPrefixer($args, $prefix: $prefix-list) {
+  @each $key, $val in $args {
+    @if $prefix and $is-use-autoprefixer {
+      @each $prefixVal in $prefix {
+        #{'-' + $prefixVal + '-' + $key}: #{$val};
+      }
+    }
+    #{$key}: #{$val};
+  }
+}
+
+
+// box-sizing
+// -----------------------------------------------------------------------------
+@mixin box-sizing($boxModel: border-box) {
+  @include setPrefixer( (box-sizing: $boxModel) );
+}
+
+
+// 过渡设定
+// -----------------------------------------------------------------------------
+@mixin transition($transition...) {
+  @include setPrefixer( (transition: $transition) );
+}
+
+// 动画规则设定
+// -----------------------------------------------------------------------------
+@mixin keyframes($aniamtedName) {
+  @-webkit-keyframes #{$aniamtedName} {
+    @content;
+  }
+  @keyframes #{$aniamtedName} {
+    @content;
+  }
+}
+
+
+// opacity
+// -----------------------------------------------------------------------------
+@mixin opacity( $opacity: 1 ) {
+  opacity: $opacity;
+  filter: Alpha(opacity = $opacity * 100);
+}
+
+
+// placeholder
+// -----------------------------------------------------------------------------
+@mixin placeholder( $color: $placeholder-color ) {
+
+  @if $is-use-autoprefixer {
+    &::-webkit-input-placeholder {
+      color: $color;
+    }
+    &:-moz-placeholder {
+      color: $color;
+    }
+    &::-moz-placeholder {
+      color: $color;
+    }
+    &:-ms-input-placeholder {
+      color: $color;
+    }
+  } @else {
+    &::placeholder {
+      color: $color;
+    }
+  }
+}
+
+// 省略号样式
+// -----------------------------------------------------------------------------
+@mixin ellipsis($line-number: 1) {
+  overflow: hidden;
+
+  @if $line-number == 1 {
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $line-number;
+    -webkit-box-orient: vertical;
+  }
+}
+
+
+// 强制换行
+// -----------------------------------------------------------------------------
+@mixin fore-wrap() {
+  white-space: pre;
+  white-space: pre-wrap;
+  white-space: pre-line;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -hp-pre-wrap;
+  word-wrap: break-word;
+}
+
+// 媒体查询
+//-----------------------------------------------------
+@mixin max-screen($maxPixel) {
+  @media only screen and (max-width: $maxPixel) {
+    @content;
+  }
+}
+@mixin min-screen($minPixel) {
+  @media only screen and (min-width: $minPixel) {
+    @content;
+  }
+}
+@mixin screen($minPixel,$maxPixel) {
+  @media only screen and (min-width: $minPixel) and (max-width: $maxPixel) {
+    @content;
+  }
+}
+
+
+// @desc 去除数据的单位
+// -----------------------------------------------------------------------------
+@function parseInt($args) {
+  @return $args / ($args * 0 + 1);
+}
+
+// @desc 是否为零
+// -----------------------------------------------------------------------------
+@function isZero($args) {
+  $number: parseInt($args);
+  $res: 0;
+
+  @if $number != 0 {
+    $res: 1;
+  }
+
+  @return $res;
+}
+
+// @desc px转为rem
+// -----------------------------------------------------------------------------
+@function px2rem($pixel) {
+  $res: 0;
+
+  @if isZero($pixel) == 1 {
+    $res: parseInt($pixel) / parseInt($baseFontSize) * 1rem;
+  }
+
+  @return $res;
+}
+
+// @desc px转为em
+// -----------------------------------------------------------------------------
+@function px2em($pixel, $contextPixel) {
+  $res: 0;
+
+  @if isZero($pixel) == 1 {
+    $res: parseInt($pixel) / parseInt($contextPixel) * 1em;
+  }
+
+  @return $res;
+}
+
+
+// 设置字体
+// -----------------------------------------------------------------------------
+@mixin font-family($type: base) {
+  $fontFamily: $base-font-family;
+
+  @if $type == head {
+    $fontFamily: $head-font-family;
+  }
+
+  @if $type == code {
+    $fontFamily: $code-font-family;
+  }
+
+  @if $type == form {
+    $fontFamily: $form-font-family;
+  }
+
+  font-family: $fontFamily;
+}
+
+
+// @desc 获取列表第一个
+// -----------------------------------------------------------------------------
+@function first($list) {
+  @return nth($list, 1);
+}
+
+
+// @desc 获取列表最后一个
+// -----------------------------------------------------------------------------
+@function last($list) {
+    @return nth($list, length($list));
+}
+

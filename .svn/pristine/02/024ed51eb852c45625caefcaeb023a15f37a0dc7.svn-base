@@ -1,0 +1,14 @@
+import Select from './src/select.vue';
+import Option from './src/option.vue';
+
+Select.install = (Vue) => {
+	Vue.component(Select.name, Select);
+};
+Option.install = (Vue) => {
+	Vue.component(Option.name, Option);
+};
+
+export {
+	Select,
+	Option
+};

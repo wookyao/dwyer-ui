@@ -1,0 +1,96 @@
+// alert config
+// -----------------------------------------------------------------------------
+$alert-padding: 8px 12px;
+$alert-text-color: #657180;
+$alert-border-radius: 5px;
+$alert-ratio: .15;
+$alert-types: (
+  info: $info-color,
+  success: $success-color,
+  warning: $warning-color,
+  error: $danger-color
+);
+$alert-icon-size: 16px;
+$alert-icon-size-lg: 30px;
+
+
+// alert component style
+// -----------------------------------------------------------------------------
+.#{$prefix-cls}alert{
+  @include box-sizing();
+
+  position: relative;
+  display: inline-block;
+  padding: $alert-padding;
+
+  width: 100%;
+  overflow: hidden;
+  color: $alert-text-color;
+  text-align: left;
+
+  @include setPrefixer( (border-radius: parseInt($alert-border-radius) * 1px) );
+
+}
+
+@each $key, $val in $alert-types {
+  .#{$prefix-cls}alert--#{$key} {
+    background-color: rgba($val, $alert-ratio);
+    border: 1px solid rgba($val, $alert-ratio + .25);
+
+    .#{$prefix-cls}alert__icon {
+      color: $val;
+    }
+  }
+}
+
+.#{$prefix-cls}alert__icon{
+  margin-top: 1px;
+  font-size: parseInt($alert-icon-size) * 1px;
+  display: table-cell;
+  vertical-align: middle;
+
+
+  &.is-more-line {
+    font-size: parseInt($alert-icon-size-lg) * 1px;
+  }
+
+
+  & + .#{$prefix-cls}alert__content {
+    padding: 0 10px;
+  }
+}
+
+.#{$prefix-cls}alert__content {
+  display: table-cell;
+}
+.#{$prefix-cls}alert__title {
+  display: block;
+  font-size: 12px;
+  padding-top: 3px;
+
+  &.is-more-line {
+    font-size: 14px;
+    color: $alert-text-color - #333;
+  }
+
+}
+.#{$prefix-cls}alert__description {
+  margin: 5px 0 0;
+  font-size: 12px;
+  line-height: 18px;
+}
+.#{$prefix-cls}alert__close {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  font-weight: normal;
+  color: #ccc;
+  cursor: pointer;
+
+  @include transition(all .3s);
+
+  &:hover {
+    color: #888;
+  }
+
+}

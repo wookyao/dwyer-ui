@@ -1,0 +1,142 @@
+// button config
+// -----------------------------------------------------------------------------
+$btn-font-size: (
+  large: 16px,
+  def: 14px,
+  small: 12px,
+  mini: 12px
+);
+$btn-border-radius: 4px;
+$btn-type: (
+  info: ($info-color, $info-color-hover),
+  success: ($success-color, $success-color-hover),
+  danger: ($danger-color, $danger-color-hover),
+  warning: ($warning-color, $warning-color-hover)
+);
+$btn-size: (
+  large: 13px 19px,
+  def: 10px 15px,
+  small: 7px 9px,
+  mini: 4px 6px
+);
+
+// button style
+// -----------------------------------------------------------------------------
+.#{$prefix-cls}btn {
+  @include box-sizing();
+
+  margin: 0;
+  padding: map-get($btn-size, 'def');
+  display: inline-block;
+
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  border: {
+    width: 1px;
+    style: solid;
+    color: #bfcbd9;
+  }
+
+  color: #1f2d3d;
+  font-size: parseInt(map-get($btn-font-size, def)) * 1px;
+  -webkit-appearance: none;
+  text-align: center;
+  outline: none;
+
+  @include setPrefixer((user-select: none));
+  @include transition(all .3s);
+
+
+  @if parseInt($btn-border-radius) > 0 {
+    @include setPrefixer((border-radius: parseInt($btn-border-radius) * 1px));
+  }
+
+  @each $key, $val in $btn-font-size {
+    @if $key != def {
+      &--#{$key} {
+        padding: map-get($btn-size, $key);
+        font-size: parseInt(map-get($btn-font-size,$key)) * 1px;
+      }
+    }
+  }
+
+
+  @each $k, $v in $btn-type {
+    &--#{$k} {
+      color: #fff;
+      background: nth($v, 1);
+      border-color: nth($v, 1);
+
+      &:hover,
+      &:focus {
+        background: nth($v, 2);
+      }
+
+      &.#{$prefix-cls}btn--plain {
+        background: #fff;
+        border-color: #bfcbd9;
+
+        color: #1f2d3d;
+
+        &:hover,
+        &:focus {
+          color: nth($v, 1);
+          border-color: nth($v, 1);
+        }
+      }
+    }
+  }
+
+  &.#{$prefix-cls}btn--disabled {
+    color: #bfcbd9;
+    cursor: not-allowed;
+    background-image: none;
+    background-color: #eef1f6;
+    border-color: #d1dbe5;
+  }
+
+}
+
+// button group style
+// -----------------------------------------------------------------------------
+
+.#{$prefix-cls}btn__group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+
+  & > .#{$prefix-cls}btn {
+    float: left;
+    @include setPrefixer((border-radius: 0));
+    border: none;
+    border-right: 1px solid rgba(255,255,255,.15);
+
+    &:first-child {
+      @include setPrefixer((
+        border-radius: parseInt($btn-border-radius) * 1px 0 0 parseInt($btn-border-radius) * 1px
+      ));
+    }
+    &:last-child {
+      @include setPrefixer((
+        border-radius: 0 parseInt($btn-border-radius) * 1px parseInt($btn-border-radius) * 1px 0
+      ));
+    }
+  }
+
+  
+  // round
+  &--round {
+    border-radius: 30px;
+    overflow: hidden;
+  }
+
+}
+

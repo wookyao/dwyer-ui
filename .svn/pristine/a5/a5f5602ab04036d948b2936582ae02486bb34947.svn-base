@@ -1,0 +1,97 @@
+<template>
+	<transition name="fade">
+		<div v-if='isHide' :class='maskCls'>
+			<div :class='alertCls'>
+				<div :class='alertHeadCls'>
+					<div :class='alertTitleCls'>{{ title }}</div>
+					<span 
+						:class="alertIconCls"
+						@click='closeAlert'>&times;</span>
+				</div>
+
+				<div :class='alertContentCls' v-text='msg'></div>
+				
+				<div :class='alertFooterCls'>
+					<dr-button 
+						type='info'
+						@click.native='closeAlert'>
+						{{ buttonTxt }}
+					</dr-button>
+				</div>
+			</div>
+		</div>
+	</transition>
+</template>
+<script>
+	import drButton from '@/components/Button/src/button.vue';
+
+	export default {
+		name: 'drDialogAlert',
+		props: {
+			title: {
+				type: String
+			},
+			msg: {
+				type: String
+			},
+			buttonTxt: {
+				type: String
+			},
+			callback: {
+				type: Function
+			},
+			perfixCls: {
+        type: String
+      }
+		},
+		data() {
+			return {
+				isHide: false
+			}
+		},
+		computed: {
+			maskCls() {
+				return [
+					`${this.perfixCls}dialog__mask`
+				];
+			},
+			alertCls() {
+				return [
+					`${this.perfixCls}dialog__alert`
+				];
+			},
+			alertHeadCls() {
+				return [
+					`${this.perfixCls}dialog__alert-head`
+				];
+			},
+			alertTitleCls() {
+				return [
+					`${this.perfixCls}dialog__alert-title`
+				];
+			},
+			alertIconCls() {
+				return [
+					`${this.perfixCls}dialog__alert-icon`
+				];
+			},
+			alertContentCls() {
+				return [
+					`${this.perfixCls}dialog__alert-content`
+				];
+			},
+			alertFooterCls() {
+				return [
+					`${this.perfixCls}dialog__alert-footer`
+				];
+			}
+			
+		},
+		mounted() {
+			this.isHide = true;
+		},
+		components: {
+			drButton
+		}
+	}
+</script>

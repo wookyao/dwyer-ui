@@ -1,0 +1,225 @@
+<template>
+  <div id="app">
+    <dr-icon type='info-circle' color='red' size='18px'></dr-icon>
+
+    <dr-alert title='这是一个警告框' desc='消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案'></dr-alert>
+    <dr-alert type='success' title='这是一个警告框'></dr-alert>
+    <dr-alert type='warning' :showIcon='false' title='这是一个警告框'></dr-alert>
+    <dr-alert type='error'></dr-alert>
+    <hr>
+
+    <dr-row :gutter='20'>
+      <dr-col :xs='5' :sm='12' :md='18' :lg='24'>
+        <div class="ee"></div>
+      </dr-col>
+    </dr-row>
+
+    <dr-row :gutter='20'>
+      <dr-col
+        :xs='{col: 6, offset: 6}'
+        :sm='{col: 12, offset: 6}'
+        :md='{col: 18, offset: 6}'
+        :lg='{col: 10, offset: 14}'>
+        <div class="ee"></div>
+      </dr-col>
+    </dr-row>
+
+    <hr>
+
+    <dr-button
+      type='success'
+      size='large'
+      icon='search'
+      :plain='true'
+      @click.native='open'>
+      opne dialog
+    </dr-button>
+    <dr-button
+      type='info'
+      :plain='true'
+      @click.native='confirm'>
+      open confirm 
+    </dr-button>
+    <dr-button
+      type='danger'
+      size='small'
+      :plain='true'
+      @click.native='toast'>
+      open toast 
+    </dr-button>
+    <dr-button
+      type='warning'
+      size='mini'
+      disabled
+      :plain='false'>
+      确认提交
+    </dr-button>
+
+    <dr-button-group
+      round vertical size='mini'>
+      <dr-button
+        type='danger'>
+        确认提交
+      </dr-button>
+      <dr-button
+        type='danger'>
+        确认提交
+      </dr-button>
+      <dr-button
+        type='danger'>
+        确认提交
+      </dr-button>
+    </dr-button-group>
+
+    <hr>
+    <div class="loading">
+      <dr-loading :fullScreen='false' tips='拼命加载中'></dr-loading>
+    </div>
+
+    <hr>
+    <dr-input
+      type='password'
+      placeholder='edit'
+      clear
+      :value='val'
+      @change='(val) => {this.val = val}'>
+    </dr-input>
+    <p>{{val}}</p>
+
+    <hr>
+
+    <dr-radio
+      value='男'
+      @change='(val) => {this.radioVal = val}'>男</dr-radio>
+    <p>{{radioVal}}</p>
+
+    <dr-radio-group
+      :datas='radioList'
+      @change='(val) => {this.rgVal=val}'>
+    </dr-radio-group>
+    <p>{{rgVal}}</p>
+
+    <hr>
+    <dr-checkbox
+      value='football'
+      @change='(val)=>{this.checkboxVal=val}'
+      >football</dr-checkbox>
+    <p>{{checkboxVal}}</p>
+
+    <hr>
+    <dr-checkbox-group :datas='ckList' @change='(val)=>{this.cgVal = val}'></dr-checkbox-group>
+    <p>{{cgVal}}</p>
+
+    <hr>
+    <dr-switch size='mini' checked type='warning'>
+    </dr-switch>
+    <dr-switch size='large'></dr-switch>
+
+    <hr>
+    <dr-progress
+      :percent='50' 
+      status='danger'></dr-progress>
+    <hr>
+    <dr-badge>
+      <span class='badge-demo'></span>
+    </dr-badge>
+
+  </div>
+
+</template>
+
+<script>
+export default {
+  name: 'app',
+  data() {
+    return {
+      val: '55555',
+      radioVal: '',
+      radioList: [
+        {
+          value: '男',
+          label: '男',
+          checked: true
+        },
+        {
+          value: '女',
+          label: '女',
+          checked: false
+        }
+      ],
+      rgVal:'男',
+      checkboxVal: {},
+      ckList: [
+        {
+          value: '男',
+          label: '男',
+          checked: true
+        },
+        {
+          value: '女',
+          label: '女',
+          checked: false
+        }
+      ],
+      cgVal: {}
+    }
+
+  },
+  methods: {
+    open() {
+      this.$dialog.alert({
+        msg: '消息一出，休想滚动屏幕'
+      });
+    },
+    confirm() {
+      // this.$dialog.confirm({
+      //   msg: '消息一出，休想滚动屏幕',
+      //   okFn: function () {
+      //     alert('ok')
+      //   }
+      // });
+      this.$dialog.toast({
+        msg: '消息一出，休想滚动屏幕',
+        type: 'success'
+      })
+    },
+    toast() {
+      this.$dialog.toast({
+        msg: '操作成功',
+        type: 'success'
+      })
+    }
+  }
+}
+</script>
+
+<style scoped>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin: 60px;
+}
+
+.ee {
+  width: 100%;
+  height: 20px;
+  background-color: #ccc;
+}
+
+.loading {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  background-color: #f00;
+}
+.badge-demo {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-color: #f3f3f3;
+}
+
+</style>

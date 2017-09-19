@@ -1,0 +1,172 @@
+.#{$prefix-cls}dialog__mask.dialog-hide {
+	@include setPrefixer((animation: dialogHide .5s ease-in-out), (webkit));
+	opacity: 0;
+
+	.#{$prefix-cls}dialog__alert {
+		@include setPrefixer((animation: dialogAlertHide .35s ease-out), (webkit));
+		@include setPrefixer((transform: translate(0, -60px)), (webkit));
+		@include opacity(0);
+	}
+}
+
+
+.#{$prefix-cls}dialog {
+
+// dialog - mask
+// -----------------------------------------------------------------------------
+$dialog-mask-color: #000;
+$dialog-mask-zindex: 15000;
+&__mask {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: $dialog-mask-zindex;
+	background-color: rgba($dialog-mask-color, .35);
+
+	@include setPrefixer((animation: dialogMaskFadeIn .5s ease-in-out), (webkit));
+}
+// msak 出现效果
+@include keyframes(dialogMaskFadeIn) {
+	0% {
+		@include opacity(0);
+	}
+	100% {
+		@include opacity;
+	}
+}
+// mask 消失效果
+@include keyframes(dialogHide) {
+	0% {
+		@include opacity(1);
+	}
+	100% {
+		@include opacity(0);
+	}
+}
+
+
+// dialog - alert 
+// -----------------------------------------------------------------------------
+$dialog-alert-bgc: #fff;
+$dialog-alert-width: 450px;
+$dialog-alert-border-radius: 3px;
+$dialog-alert-font-size: 16px;
+$dialog-alert-margin-top: 200px;
+$dialog-alert-color: $info-color;
+
+&__alert {
+	position: relative;
+  display: block;
+  @include box-sizing;
+  margin: {
+  	top: parseInt($dialog-alert-margin-top) * 1px;
+  	right: auto;
+  	left: auto
+  };
+
+  width: parseInt($dialog-alert-width) * 1px;
+  
+  font-size: parseInt($dialog-alert-font-size) * 1px;
+  text-align: left;
+	background-color: $dialog-alert-bgc;
+  overflow: hidden;
+	
+	@include setPrefixer((
+		border-radius: parseInt($dialog-alert-border-radius) * 1px), (webkit));
+
+  @include setPrefixer((animation: dialogAlert .35s ease-out), (webkit));
+
+	// head
+	&-head {
+		position: relative;
+		padding: 20px 20px 0;
+		overflow: hidden;
+	}
+	&-title {
+		height: 18px;
+		line-height: 18px;
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+		@include font-family(code);
+	}
+	&-icon {
+		position: absolute;
+		top: 6px;
+		right: 20px;
+		cursor: pointer;
+		color: #999;
+		font-weight: normal;
+		font-size: 34px;
+		@include transition(color .3s ease);
+
+		&:hover {
+			color: $dialog-alert-color;
+		}
+	}
+
+	// content
+	&-content {
+		padding: 25px 20px;
+    color: #48576a;
+    font-size: 14px;
+    position: relative;
+	}
+
+	// footer
+	&-footer {
+		position: relative;
+		padding: 0 20px 20px;
+		text-align: right;
+	}
+
+
+}
+
+// alert 出现效果
+@include keyframes(dialogAlert) {
+	0% {
+		@include opacity(0);
+		@include setPrefixer((transform: translate(0, -60px)), (webkit));
+	}
+	100% {
+		@include opacity;
+		@include setPrefixer((transform: translate(0, 0)), (webkit));
+	}
+}
+// alert 消失效果
+@include keyframes(dialogAlertHide) {
+	0% {
+		@include opacity(1);
+		@include setPrefixer((transform: translate(0, 0)), (webkit));
+	}
+	100% {
+		@include opacity(0);
+		@include setPrefixer((transform: translate(0, -60px)), (webkit));
+	}
+}
+
+// dialog - confirm 
+// -----------------------------------------------------------------------------
+
+
+// dialog - loading 
+// -----------------------------------------------------------------------------
+
+
+
+// dialog - notify 
+// -----------------------------------------------------------------------------
+
+
+// dialog - toast 
+// -----------------------------------------------------------------------------
+
+}
+
+
+
+
+

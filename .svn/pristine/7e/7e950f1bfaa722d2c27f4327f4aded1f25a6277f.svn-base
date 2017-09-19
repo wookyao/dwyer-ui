@@ -1,0 +1,67 @@
+<template>
+	<span :class='classObj' ref='badge'>
+		<slot></slot>
+
+		<sup v-if='dot' :class='dotClass'></sup>
+		<sup v-else :class='countClass'>{{ getCount }}</sup>
+	</span>
+</template>
+<script>
+	export default {
+		name: 'drBadge',
+		props: {
+			count: {
+				type: [String, Number],
+				default: 0
+			},
+			dot: {
+				type: Boolean,
+				default: false
+			},
+			overflowCount: {
+				type: Number,
+				default: 99
+			},
+			className: {
+				type: String
+			},
+			perfixCls: {
+				type: String,
+				default: 'dr-'
+			}
+		},
+		computed: {
+			classObj() {
+				return [
+					`${this.perfixCls}badge`
+				];
+			},
+			dotClass() {
+				return [
+					`${this.perfixCls}badge__dot`
+				];
+			},
+			countClass() {
+				return [
+					`${this.perfixCls}badge__count`,
+					{
+						[`${this.perfixCls}badge__count--alone`]: this.alone
+					},
+					this.className ? `${this.className}` : ''
+				];
+			},
+			getCount() {
+				return this.count <= +this.overflowCount ? this.count : `+${this.overflowCount}`
+			}
+		},
+		data() {
+			return {
+				alone: false,
+				currentCount: 0
+			};
+		},
+		mounted() {
+			this.alone = this.$refs.badge.children.length === 1;
+		}
+	}
+</script>

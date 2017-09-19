@@ -1,0 +1,68 @@
+<template>
+	<transition name="fade">
+		<div v-if='isHide' :class='maskCls'>
+			<div :class='alertCls'>
+				<alert-head	:title='title' :perfixCls='perfixCls'	@close='close'></alert-head>
+				<div :class='alertContentCls' v-text='msg'></div>
+			</div>
+		</div>
+	</transition>
+</template>
+<script>
+	import alertHead from './alert-head.vue';
+
+	export default {
+		name: 'drDialogAlert',
+		props: {
+			title: {
+				type: String
+			},
+			msg: {
+				type: String
+			},
+			buttonTxt: {
+				type: String
+			},
+			callback: {
+				type: Function
+			},
+			perfixCls: {
+        type: String
+      }
+		},
+		data() {
+			return {
+				isHide: false
+			}
+		},
+		computed: {
+			maskCls() {
+				return [
+					`${this.perfixCls}dialog__mask`
+				];
+			},
+			alertCls() {
+				return [
+					`${this.perfixCls}dialog__alert`
+				];
+			},
+			alertContentCls() {
+				return [
+					`${this.perfixCls}dialog__alert-content`
+				];
+			}
+			
+		},
+		methods: {
+			close() {
+				this.isHide = !this.isHide;
+			}
+		},
+		mounted() {
+			this.isHide = true;
+		},
+		components: {
+			alertHead
+		}
+	}
+</script>

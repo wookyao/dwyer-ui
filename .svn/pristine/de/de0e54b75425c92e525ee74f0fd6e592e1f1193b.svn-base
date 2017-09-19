@@ -1,0 +1,45 @@
+<template>
+	<div :class='maskCls'>
+		
+	</div>
+</template>
+<script>
+	export default {
+		name: 'drDialogAlert',
+		props: {
+			title: {
+				type: String,
+				default: '提示'
+			},
+			msg: {
+				type: String
+			},
+			buttonTxt: {
+				type: String,
+				default: '我知道了'
+			},
+			perfixCls: {
+				type: String,
+				default: 'dr-'
+			}
+		},
+		data() {
+			return {
+				isHide: false
+			}
+		},
+		computed: {
+			maskCls() {
+				return [
+					`${this.perfixCls}dialog__mask`
+				];
+			}
+		},
+		methods: {
+
+		},
+		mounted() {
+
+		}
+	}
+</script>

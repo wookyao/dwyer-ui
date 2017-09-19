@@ -1,0 +1,7 @@
+import dialogAlert from './src/alert/';
+import dialogConfirm from './src/confirm/';
+
+export {
+	dialogAlert,
+	dialogConfirm
+};

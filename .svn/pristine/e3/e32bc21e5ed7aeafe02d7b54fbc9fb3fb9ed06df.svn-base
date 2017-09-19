@@ -1,0 +1,43 @@
+<template>
+	<div :class='alertHeadCls'>
+		<div :class='alertTitleCls'>{{ title }}</div>
+		<span 
+			:class="alertIconCls"
+			@click.stop='close'>&times;</span>
+	</div>
+</template>
+<script>
+	export default {
+		name: 'alertHead',
+		props: {
+			title: {
+				type: String
+			},
+			perfixCls: {
+        type: String
+      }
+		},
+		computed: {
+			alertHeadCls() {
+				return [
+					`${this.perfixCls}dialog__alert-head`
+				];
+			},
+			alertTitleCls() {
+				return [
+					`${this.perfixCls}dialog__alert-title`
+				];
+			},
+			alertIconCls() {
+				return [
+					`${this.perfixCls}dialog__alert-icon`
+				];
+			}
+		},
+		methods: {
+			close() {
+				this.$emit('close');
+			}
+		}
+	}
+</script>

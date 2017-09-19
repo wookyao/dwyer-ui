@@ -1,0 +1,232 @@
+.#{$prefix-cls}dialog__mask.dialog-hide {
+	@include setPrefixer((animation: dialogHide .5s ease-in-out), (webkit));
+	opacity: 0;
+
+	.#{$prefix-cls}dialog__modal {
+		@include setPrefixer((animation: dialogModalHide .35s ease-out), (webkit));
+		@include setPrefixer((transform: translate(0, -60px)), (webkit));
+		@include opacity(0);
+	}
+}
+
+
+.#{$prefix-cls}dialog {
+
+// dialog - mask
+// -----------------------------------------------------------------------------
+$dialog-mask-color: #000;
+$dialog-mask-zindex: 15000;
+&__mask {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: $dialog-mask-zindex;
+	background-color: rgba($dialog-mask-color, .35);
+
+	@include setPrefixer((animation: dialogMaskFadeIn .5s ease-in-out), (webkit));
+}
+// msak 出现效果
+@include keyframes(dialogMaskFadeIn) {
+	0% {
+		@include opacity(0);
+	}
+	100% {
+		@include opacity;
+	}
+}
+// mask 消失效果
+@include keyframes(dialogHide) {
+	0% {
+		@include opacity(1);
+	}
+	100% {
+		@include opacity(0);
+	}
+}
+
+
+// dialog - alert 
+// -----------------------------------------------------------------------------
+$dialog-modal-bgc: #fff;
+$dialog-modal-width: 450px;
+$dialog-modal-border-radius: 3px;
+$dialog-modal-font-size: 16px;
+$dialog-modal-margin-top: 200px;
+$dialog-modal-color: $info-color;
+
+&__modal {
+	position: relative;
+  display: block;
+  @include box-sizing;
+  margin: {
+  	top: parseInt($dialog-modal-margin-top) * 1px;
+  	right: auto;
+  	left: auto
+  };
+
+  width: parseInt($dialog-modal-width) * 1px;
+  
+  font-size: parseInt($dialog-modal-font-size) * 1px;
+  text-align: left;
+	background-color: $dialog-modal-bgc;
+  overflow: hidden;
+	
+	@include setPrefixer((
+		border-radius: parseInt($dialog-modal-border-radius) * 1px), (webkit));
+
+  @include setPrefixer((animation: dialogModal .35s ease-out), (webkit));
+
+	// head
+	&-head {
+		position: relative;
+		padding: 20px 20px 0;
+		overflow: hidden;
+	}
+	&-title {
+		height: 18px;
+		line-height: 18px;
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+		@include font-family(code);
+	}
+	&-icon {
+		position: absolute;
+		top: 6px;
+		right: 20px;
+		cursor: pointer;
+		color: #999;
+		font-weight: normal;
+		font-size: 34px;
+		@include transition(color .3s ease);
+
+		&:hover {
+			color: $dialog-modal-color;
+		}
+	}
+
+	// content
+	&-content {
+		padding: 25px 20px;
+    color: #48576a;
+    font-size: 14px;
+    position: relative;
+
+    &-icon {
+    	position: absolute;
+    	left: 25px;
+    	top: 50%;
+	    transform: translateY(-50%);
+	    font-size: 36px!important;
+	    color: $warning-color;
+    }
+	}
+	&-tips {
+		padding-left: 50px;
+	}
+
+	// footer
+	&-footer {
+		position: relative;
+		padding: 0 20px 20px;
+		text-align: right;
+	}
+
+
+}
+
+// modal 出现效果
+@include keyframes(dialogModal) {
+	0% {
+		@include opacity(0);
+		@include setPrefixer((transform: translate(0, -60px)), (webkit));
+	}
+	100% {
+		@include opacity;
+		@include setPrefixer((transform: translate(0, 0)), (webkit));
+	}
+}
+// alert 消失效果
+@include keyframes(dialogModalHide) {
+	0% {
+		@include opacity(1);
+		@include setPrefixer((transform: translate(0, 0)), (webkit));
+	}
+	100% {
+		@include opacity(0);
+		@include setPrefixer((transform: translate(0, -60px)), (webkit));
+	}
+}
+
+// dialog - notify 
+// -----------------------------------------------------------------------------
+
+
+// dialog - toast 
+// -----------------------------------------------------------------------------
+$toast-zindex: 10000;
+$toast-status: (
+	success: $info-color,
+	error: $danger-color,
+	warning: $warning-color
+);
+
+&__toast {
+	position: fixed;
+	top: 10px;
+	left: 0;
+	z-index: $toast-zindex;
+	width: 100%;
+	text-align: center;
+	
+	@each $k, $v in $toast-status {
+		&--#{$k} {
+			position: relative;
+			top: 2px;
+			font-size: 14px;
+			color: $v;
+		}
+	}
+ 
+
+	&-inner {
+		position: relative;
+		display: inline-block;
+		padding: 8px 16px;
+		min-width: 120px;
+		color: #666;
+		font-size: 12px;
+		background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+    @include setPrefixer((animation: toast 3s ease-out), (webkit));
+
+    @include opacity(0);
+		@include setPrefixer((transform: translate(0, -60px)), (webkit));
+	}
+
+}
+// toast 消失效果
+@include keyframes(toast) {
+	0% {
+		@include opacity(0);
+		@include setPrefixer((transform: translate(0, -60px)), (webkit));
+	}
+	10%, 90% {
+		@include opacity(1);
+		@include setPrefixer((transform: translate(0, 0)), (webkit));
+	}
+	100% {
+		@include opacity(0);
+		@include setPrefixer((transform: translate(0, -60px)), (webkit));
+	}
+}
+
+}
+
+
+
+
+

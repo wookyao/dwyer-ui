@@ -1,0 +1,5 @@
+import dialogAlert from './src/alert/';
+
+export {
+	dialogAlert
+};

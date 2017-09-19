@@ -1,0 +1,102 @@
+// grid config
+// -----------------------------------------------------------------------------
+$grid-col-num: 24;
+$grid-point: (
+  xs: 767,
+  sm: 768,
+  md: 990,
+  lg: 1200
+);
+
+// grid style
+// -----------------------------------------------------------------------------
+.#{$prefix-cls}row {
+  position: relative;
+  @include box-sizing();
+
+  overflow: hidden;
+
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+
+  &--flex {
+    @include setPrefixer((display: flex), (ms));
+  }
+
+  &--justify {
+    &-center {
+      -ms-flex-pack: center;
+      justify-content: center;
+    }
+
+    &-end {
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+    }
+
+    &-space-between {
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+
+    &-space-around {
+      -ms-flex-pack: distribute;
+      justify-content: space-around;
+    }
+
+  }
+}
+
+// col
+.#{$prefix-cls}col {
+  float: left;
+  @include box-sizing();
+
+  @for $i from 1 through $grid-col-num {
+    &--#{$i} {
+      width: percentage($i / $grid-col-num);
+    }
+  }
+
+  @for $i from 1 to $grid-col-num {
+    &--offset-#{$i} {
+      margin-left: percentage($i / $grid-col-num);
+    }
+  }
+
+  @each $key, $val in $grid-point {
+    @if $key == 'xs' {
+      @include max-screen($val * 1px) {
+        @for $i from 1 through $grid-col-num {
+          &--xs-#{$i} {
+            width: percentage($i / $grid-col-num);
+          }
+        }
+
+        @for $i from 1 to $grid-col-num {
+          &--offset-xs-#{$i} {
+            margin-left: percentage($i / $grid-col-num);
+          }
+        }
+      }
+    } @else {
+      @include min-screen($val * 1px) {
+        @for $i from 1 through $grid-col-num {
+          &--#{$key}-#{$i} {
+            width: percentage($i / $grid-col-num);
+          }
+        }
+
+        @for $i from 1 to $grid-col-num {
+          &--offset-#{$key}-#{$i} {
+            margin-left: percentage($i / $grid-col-num);
+          }
+        }
+      }
+    }
+  }
+
+}

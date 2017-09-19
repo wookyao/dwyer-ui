@@ -1,0 +1,69 @@
+// progress config
+// -----------------------------------------------------------------------------
+$pg-txt-width: 55px;
+$pg-inner-bg: #f3f3f3;
+$pg-inner-height: 10px;
+$pg-font-size: 12px;
+$pg-font-color: #666;
+$pg-status: (
+	info: $info-color,
+	success: $success-color,
+	warning: $warning-color,
+	danger: $danger-color
+);
+
+// progress style
+// -----------------------------------------------------------------------------
+.#{$prefix-cls}progress {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	font-size: parseInt($pg-font-size) * 1px;
+	
+	&--show-info {
+		.#{$prefix-cls}progress__outer {
+			padding-right: parseInt($pg-txt-width) * 1px;
+			margin-right: parseInt($pg-txt-width) * -1px;
+		}
+	}
+
+	&__outer {
+		display: inline-block;
+		width: 100%;
+		margin-right: 0;
+		margin-left: 0;
+		text-align: left;
+	}
+
+	&__inner {
+		display: inline-block;
+		width: 100%;
+		height: parseInt($pg-inner-height) * 1px;
+		background-color: $pg-inner-bg;
+    @include setPrefixer((border-radius: 20px));
+    vertical-align: middle;
+    overflow: hidden;
+	}
+	&__bar {
+		display: inline-block;
+		height: 100%;
+		@include setPrefixer((transition: width .2s ease-in-out), (webkit));
+		@include setPrefixer((border-radius: 20px));
+
+		@each $k, $v in $pg-status {
+			&--#{$k} {
+				background-color: $v;
+			}
+		}
+	}
+
+	&__text {
+		display: inline-block;
+		margin-left: 5px;
+		text-align: left;
+		vertical-align: middle;
+		font-size: 1em;
+		color: $pg-font-color;
+	}
+
+}

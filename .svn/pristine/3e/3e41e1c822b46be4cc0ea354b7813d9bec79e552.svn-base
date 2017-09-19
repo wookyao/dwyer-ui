@@ -1,0 +1,67 @@
+// loading config
+// -----------------------------------------------------------------------------
+
+
+// loading style
+// -----------------------------------------------------------------------------
+.#{$prefix-cls}loading {
+	&__mask {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 10000;
+		background-color: hsla(0%, 0%, 100%, .9);
+		
+		margin: 0;
+
+		&--full {
+			position: fixed;
+		}
+	}
+
+	&__inner {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		min-height: 40px;
+		text-align: center;
+		color: $info-color;
+
+		.loading-rotate {
+			position: absolute;
+			left: 50%;
+			margin-left: -20px;
+			font-size: 40px;
+			@include setPrefixer((animation: rotate 2s linear infinite), (webkit));
+
+			& + .#{$prefix-cls}loading__tips {
+				margin-top: 50px;
+			}
+		}
+
+	}
+
+	&__tips {
+		font-size: 14px;
+	}
+
+}
+
+
+// 动画帧
+// -----------------------------------------------------------------------------
+@include keyframes(rotate) {
+	0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg); }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); }
+}
